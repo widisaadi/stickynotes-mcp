@@ -1,0 +1,205 @@
+<svg width="1200" height="420" viewBox="0 0 1200 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%" fx="50%" fy="30%">
+      <stop offset="0%" stop-color="#161b22" />
+      <stop offset="100%" stop-color="#0a0d12" />
+    </radialGradient>
+
+    <!-- Node Glow Gradients -->
+    <linearGradient id="stickyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="100%" stop-color="#FFB300" />
+    </linearGradient>
+
+    <linearGradient id="mcpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+
+    <linearGradient id="agentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+
+    <linearGradient id="lineGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFB300" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#38BDF8" stop-opacity="1" />
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0.8" />
+    </linearGradient>
+
+    <linearGradient id="lineGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#C084FC" stop-opacity="1" />
+      <stop offset="100%" stop-color="#7C3AED" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Card Shadow -->
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1200" height="420" rx="16" fill="url(#bgGrad)" />
+  <rect width="1200" height="420" rx="16" stroke="#30363d" stroke-width="1.5" />
+
+  <!-- Subtle Grid Pattern -->
+  <g opacity="0.12">
+    <path d="M 0,70 L 1200,70 M 0,140 L 1200,140 M 0,210 L 1200,210 M 0,280 L 1200,280 M 0,350 L 1200,350" stroke="#8b949e" stroke-width="1" stroke-dasharray="4,8" />
+    <path d="M 150,0 L 150,420 M 300,0 L 300,420 M 450,0 L 450,420 M 600,0 L 600,420 M 750,0 L 750,420 M 900,0 L 900,420 M 1050,0 L 1050,420" stroke="#8b949e" stroke-width="1" stroke-dasharray="4,8" />
+  </g>
+
+  <!-- Title & Subtitle Top Header -->
+  <g transform="translate(600, 52)" text-anchor="middle">
+    <text font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="800" font-size="28" fill="#F0F6FC" letter-spacing="1.5">
+      WINDOWS STICKY NOTES <tspan fill="#38BDF8">MCP</tspan>
+    </text>
+    <text y="26" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#8B949E" letter-spacing="0.5">
+      Direct Bridge Connecting Native Desktop Notes to Autonomous AI Agents
+    </text>
+  </g>
+
+  <!-- Connector Lines -->
+  <!-- Connector 1: Sticky Notes -> MCP -->
+  <g>
+    <path d="M 330 240 L 490 240" stroke="url(#lineGrad1)" stroke-width="3" stroke-dasharray="6,4" />
+    <circle cx="410" cy="240" r="5" fill="#38BDF8" filter="url(#glow)" />
+    <!-- Data Flow Labels -->
+    <rect x="365" y="210" width="90" height="20" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1" />
+    <text x="410" y="224" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#FFB300" text-anchor="middle">SQLite WAL</text>
+  </g>
+
+  <!-- Connector 2: MCP -> AI Agent -->
+  <g>
+    <path d="M 710 240 L 870 240" stroke="url(#lineGrad2)" stroke-width="3" stroke-dasharray="6,4" />
+    <circle cx="790" cy="240" r="5" fill="#C084FC" filter="url(#glow)" />
+    <!-- Data Flow Labels -->
+    <rect x="742" y="210" width="96" height="20" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1" />
+    <text x="790" y="224" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#38BDF8" text-anchor="middle">JSON-RPC / stdio</text>
+  </g>
+
+  <!-- ================= CARD 1: STICKY NOTES ================= -->
+  <g transform="translate(110, 130)">
+    <!-- Card Base -->
+    <rect width="220" height="220" rx="16" fill="#161b22" stroke="#30363d" stroke-width="1.5" filter="url(#cardShadow)" />
+    <rect width="220" height="220" rx="16" fill="url(#stickyGrad)" fill-opacity="0.04" />
+    <path d="M 0 16 C 0 7.16 7.16 0 16 0 L 204 0 C 212.84 0 220 7.16 220 16 L 220 4 C 220 1.79 218.21 0 216 0 L 4 0 C 1.79 0 0 1.79 0 4 Z" fill="url(#stickyGrad)" />
+
+    <!-- Sticky Note Graphic Icon -->
+    <g transform="translate(76, 32)">
+      <!-- Main Note Sheet -->
+      <path d="M 0 0 L 52 0 L 68 16 L 68 76 C 68 80.4 64.4 84 60 84 L 8 84 C 3.6 84 0 80.4 0 76 Z" fill="url(#stickyGrad)" />
+      <!-- Folded Corner -->
+      <path d="M 52 0 L 68 16 L 52 16 Z" fill="#FFA000" opacity="0.8" />
+      <path d="M 52 0 L 52 16 L 68 16" stroke="#FF8F00" stroke-width="1" />
+      <!-- Note Lines -->
+      <rect x="12" y="28" width="44" height="4" rx="2" fill="#5D4037" opacity="0.3" />
+      <rect x="12" y="40" width="36" height="4" rx="2" fill="#5D4037" opacity="0.3" />
+      <rect x="12" y="52" width="40" height="4" rx="2" fill="#5D4037" opacity="0.3" />
+      <!-- Pushpin -->
+      <circle cx="34" cy="10" r="5" fill="#D32F2F" />
+      <circle cx="34" cy="10" r="2" fill="#FFCDD2" />
+    </g>
+
+    <!-- Texts -->
+    <text x="110" y="148" font-family="system-ui, sans-serif" font-weight="700" font-size="16" fill="#F0F6FC" text-anchor="middle">
+      Sticky Notes
+    </text>
+    <text x="110" y="170" font-family="system-ui, sans-serif" font-weight="500" font-size="12" fill="#FFB300" text-anchor="middle">
+      Windows UWP App
+    </text>
+    <text x="110" y="196" font-family="system-ui, sans-serif" font-size="11" fill="#8B949E" text-anchor="middle">
+      plum.sqlite (Local State)
+    </text>
+    <text x="110" y="214" font-family="system-ui, sans-serif" font-size="10" fill="#6E7681" text-anchor="middle">
+      Themes • Desktop Windows
+    </text>
+  </g>
+
+  <!-- ================= CARD 2: MCP PROTOCOL CORE ================= -->
+  <g transform="translate(490, 130)">
+    <!-- Card Base -->
+    <rect width="220" height="220" rx="16" fill="#161b22" stroke="#0284C7" stroke-width="1.8" filter="url(#cardShadow)" />
+    <rect width="220" height="220" rx="16" fill="url(#mcpGrad)" fill-opacity="0.06" />
+
+    <!-- MCP Icon / Gateway Engine -->
+    <g transform="translate(82, 30)">
+      <!-- Outer Hexagon Ring -->
+      <polygon points="28,4 52,18 52,46 28,60 4,46 4,18" fill="#0C4A6E" stroke="#38BDF8" stroke-width="2.5" />
+      <!-- Core Connector / Plug -->
+      <circle cx="28" cy="32" r="14" fill="#0284C7" />
+      <!-- Lightning / Sync Shape -->
+      <path d="M 28 22 L 23 33 L 28 33 L 27 42 L 34 31 L 29 31 Z" fill="#FFFFFF" />
+      <!-- Small Orbit Nodes -->
+      <circle cx="10" cy="18" r="3.5" fill="#38BDF8" />
+      <circle cx="46" cy="18" r="3.5" fill="#38BDF8" />
+      <circle cx="28" cy="56" r="3.5" fill="#38BDF8" />
+    </g>
+
+    <!-- Texts -->
+    <text x="110" y="148" font-family="system-ui, sans-serif" font-weight="700" font-size="16" fill="#F0F6FC" text-anchor="middle">
+      MCP Server
+    </text>
+    <text x="110" y="170" font-family="system-ui, sans-serif" font-weight="500" font-size="12" fill="#38BDF8" text-anchor="middle">
+      Model Context Protocol
+    </text>
+    <text x="110" y="196" font-family="system-ui, sans-serif" font-size="11" fill="#8B949E" text-anchor="middle">
+      9 High-Level Tools
+    </text>
+    <text x="110" y="214" font-family="system-ui, sans-serif" font-size="10" fill="#6E7681" text-anchor="middle">
+      CRUD • Search • Stats • Export
+    </text>
+  </g>
+
+  <!-- ================= CARD 3: AI AGENTS ================= -->
+  <g transform="translate(870, 130)">
+    <!-- Card Base -->
+    <rect width="220" height="220" rx="16" fill="#161b22" stroke="#30363d" stroke-width="1.5" filter="url(#cardShadow)" />
+    <rect width="220" height="220" rx="16" fill="url(#agentGrad)" fill-opacity="0.04" />
+    <path d="M 0 16 C 0 7.16 7.16 0 16 0 L 204 0 C 212.84 0 220 7.16 220 16 L 220 4 C 220 1.79 218.21 0 216 0 L 4 0 C 1.79 0 0 1.79 0 4 Z" fill="url(#agentGrad)" />
+
+    <!-- AI Agent Robot / Intelligence Icon -->
+    <g transform="translate(82, 32)">
+      <!-- Robot Head -->
+      <rect x="4" y="14" width="48" height="38" rx="10" fill="url(#agentGrad)" />
+      <!-- Antenna -->
+      <rect x="26" y="2" width="4" height="12" fill="#C084FC" />
+      <circle cx="28" cy="2" r="4" fill="#E9D5FF" />
+      <!-- Ears -->
+      <rect x="0" y="26" width="4" height="14" rx="2" fill="#9333EA" />
+      <rect x="52" y="26" width="4" height="14" rx="2" fill="#9333EA" />
+      <!-- Visor / Eyes -->
+      <rect x="12" y="24" width="32" height="14" rx="7" fill="#1E1B4B" />
+      <circle cx="20" cy="31" r="3.5" fill="#38BDF8" />
+      <circle cx="36" cy="31" r="3.5" fill="#38BDF8" />
+      <!-- Smile / Line -->
+      <path d="M 22 44 Q 28 48 34 44" stroke="#F3E8FF" stroke-width="2" stroke-linecap="round" fill="none" />
+    </g>
+
+    <!-- Texts -->
+    <text x="110" y="148" font-family="system-ui, sans-serif" font-weight="700" font-size="16" fill="#F0F6FC" text-anchor="middle">
+      AI Agents
+    </text>
+    <text x="110" y="170" font-family="system-ui, sans-serif" font-weight="500" font-size="12" fill="#C084FC" text-anchor="middle">
+      Claude • Cursor • Hermes
+    </text>
+    <text x="110" y="196" font-family="system-ui, sans-serif" font-size="11" fill="#8B949E" text-anchor="middle">
+      Windsurf • Roo Code • Cline
+    </text>
+    <text x="110" y="214" font-family="system-ui, sans-serif" font-size="10" fill="#6E7681" text-anchor="middle">
+      Autonomous Task Execution
+    </text>
+  </g>
+
+  <!-- Bottom Accent Tag -->
+  <g transform="translate(600, 392)" text-anchor="middle">
+    <text font-family="system-ui, sans-serif" font-size="11" font-weight="500" fill="#484F58">
+      Open Source • MIT License • Built for Windows &amp; MCP Protocol
+    </text>
+  </g>
+</svg>
