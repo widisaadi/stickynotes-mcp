@@ -153,6 +153,8 @@ This is an independent project and is not affiliated with Microsoft. It edits th
 
 The responsive landing page lives in [`docs/`](docs/). It uses plain HTML, CSS, and JavaScript, with no build step or external runtime dependencies. Its interactive examples use fictional sample data and do not access your notes.
 
+Newsreader and Plus Jakarta Sans are served from local font files. Their SIL Open Font License notices are included in [`docs/fonts/`](docs/fonts/).
+
 Preview it locally from the repository root:
 
 ```powershell

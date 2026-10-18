@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f1e9">
+  <meta name="theme-color" content="#faf8f4">
   <meta name="description" content="Connect Microsoft Sticky Notes to your AI tools. Read, search, create, and export your notes with an open-source MCP server for Windows.">
-  <meta property="og:title" content="Sticky Notes MCP — Your notes. Within reach.">
+  <meta property="og:title" content="Sticky Notes MCP — Your notes, connected.">
   <meta property="og:description" content="Your desktop notes, connected to your AI tools. An independent open-source project for Windows.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://sticky-notes-mcp.speedysole32.chatgpt.site/social-preview.png">
   <meta property="og:image:alt" content="Sticky Notes MCP in warm cream and paper yellow. Your desktop notes, connected to your AI tools.">
   <meta property="og:image:width" content="1600">
   <meta property="og:image:height" content="560">
-  <title>Sticky Notes MCP — Your notes. Within reach.</title>
+  <title>Sticky Notes MCP — Your notes, connected.</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
@@ -29,60 +31,65 @@
     <symbol id="i-window" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 6.5h.01m3 0h.01"/></symbol>
   </svg>
 
-  <header class="site-header wrap">
+  <header class="site-header">
     <a class="brand" href="#" aria-label="Sticky Notes MCP home"><span class="note-mark" aria-hidden="true"></span><span translate="no">Sticky Notes <span class="brand-mcp">MCP</span></span></a>
-    <nav aria-label="Main navigation">
-      <a class="nav-example" href="#examples">Examples</a>
-      <a href="#setup">Setup</a>
-      <a class="github-link" href="https://github.com/widisaadi/stickynotes-mcp"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg><span>GitHub</span></a>
-    </nav>
+    <nav class="desktop-nav" aria-label="Main navigation"><a href="#examples">The experience</a><a href="#possibilities">What it does</a><a href="#setup">Setup</a></nav>
+    <a class="nav-github" href="https://github.com/widisaadi/stickynotes-mcp"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>View source</a>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu-dialog"><span></span><span></span></button>
   </header>
+  <dialog class="menu-dialog" id="menu-dialog" aria-labelledby="menu-title">
+    <div class="menu-top"><span class="brand" id="menu-title"><span class="note-mark" aria-hidden="true"></span>Sticky Notes MCP</span><button type="button" class="menu-close" aria-label="Close menu"><span></span><span></span></button></div>
+    <nav aria-label="Mobile navigation"><a href="#examples">The experience</a><a href="#possibilities">What it does</a><a href="#setup">Connect your notes</a><a href="https://github.com/widisaadi/stickynotes-mcp">View the source</a></nav>
+    <p>A little bridge between the notes you keep<br>and the tools you think with.</p>
+  </dialog>
 
   <main id="main">
-    <section class="hero wrap" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="hero-context"><svg class="icon" aria-hidden="true"><use href="#i-window"/></svg>Made for Microsoft Sticky Notes</p>
-        <h1 id="hero-title">Your notes.<br>Within reach.</h1>
-        <p class="hero-description">Bring your Windows sticky notes into the conversation with your AI assistant. Find an idea, add a task, or pick up where you left off.</p>
-        <div class="hero-actions"><a class="button button-dark" href="#setup">Connect your notes<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="text-link" href="https://github.com/widisaadi/stickynotes-mcp#readme">Read the docs</a></div>
-        <p class="hero-fine">Open-source. Runs locally. Yours to build on.</p>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content wrap">
+        <p class="eyebrow hero-badge"><span class="status-dot" aria-hidden="true"></span>A little bridge for Windows</p>
+        <h1 id="hero-title">Your notes.<br>In good company.</h1>
+        <p class="hero-description">Bring Microsoft Sticky Notes into the conversation with your AI assistant.<br class="desktop-break"> Find the thought, add the task, and carry the idea forward.</p>
+        <div class="hero-actions"><a class="button button-dark" href="#setup"><span>Connect your notes</span><span class="button-icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a><a class="text-link" href="https://github.com/widisaadi/stickynotes-mcp#readme">Read the documentation</a></div>
+        <p class="hero-fine">Open-source. Local to your desktop. Yours to build on.</p>
       </div>
 
-      <div class="hero-example" id="examples" aria-labelledby="example-title">
-        <div class="example-heading"><span id="example-title">A little example</span><span class="sample-label">Sample data</span></div>
-        <div class="paper-scene">
-          <div class="back-paper" aria-hidden="true"><span>One thing at a time.</span></div>
-          <div class="sticky-paper" id="demo-paper">
-            <div class="paper-top" aria-hidden="true"><span></span><span>···</span></div>
-            <div class="paper-content"><p class="paper-title" id="note-title">For the week</p><ul id="note-lines" class="note-lines"><li class="done">Outline the new idea</li><li class="highlighted">Review the release checklist</li><li>Make a little time to read</li></ul><span class="paper-footer" id="note-footer">The thought you were looking for.</span></div>
-            <span class="paper-fold" aria-hidden="true"></span>
+      <div class="hero-example wrap" id="examples" aria-labelledby="example-title" data-reveal>
+        <div class="desk-shell"><div class="desk-core">
+          <div class="desk-heading"><span class="desk-heading-mark" aria-hidden="true"></span><span id="example-title">A familiar place for your thoughts</span><span class="sample-label">Interactive example</span></div>
+          <div class="paper-scene">
+            <div class="support-note support-note-left" aria-hidden="true"><div class="support-inner"><span class="paper-date">A thought for later</span><p>Small ideas.<br>Good beginnings.</p><span class="hand-line"></span><span class="hand-line short"></span><div class="note-doodle"><svg viewBox="0 0 64 42"><path d="M6 26c9-16 17-18 20-9s-9 17-12 13S32 6 40 12s-2 19-9 19 17-5 24-5"/></svg></div></div></div>
+            <div class="sticky-paper" id="demo-paper"><div class="paper-inner">
+              <div class="paper-top"><span><span class="tiny-note" aria-hidden="true"></span>Sticky Notes</span><span aria-hidden="true">···</span></div>
+              <div class="paper-content"><p class="paper-title" id="note-title">For the week</p><ul id="note-lines" class="note-lines"><li class="done">Outline the new idea</li><li class="highlighted">Review the release checklist</li><li>Make a little time to read</li></ul><span class="paper-footer" id="note-footer">The thought you were looking for.</span></div>
+              <span class="paper-fold" aria-hidden="true"></span>
+            </div></div>
+            <div class="support-note support-note-right" aria-hidden="true"><div class="support-inner"><span class="paper-date">Room for the next thing</span><p>Pick it up<br>from here.</p><span class="round-check">✓</span><span class="small-note-line">One thing at a time.</span></div></div>
+            <div class="sample-request"><div class="request-core"><span class="request-symbol" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span><div><span class="request-label">Ask your assistant</span><p id="sample-prompt">Find my note about the release checklist.</p></div><span class="request-send" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></span></div></div>
           </div>
-          <div class="sample-request"><span class="request-symbol" aria-hidden="true">“</span><p id="sample-prompt">Find my note about the release checklist.</p><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></div>
-        </div>
-        <div class="example-controls" aria-label="Choose a sample action"><button type="button" data-example="find" aria-pressed="true">Find a note</button><button type="button" data-example="write" aria-pressed="false">Add a task</button><button type="button" data-example="export" aria-pressed="false">Export notes</button></div>
-        <p class="example-caption" id="example-caption" aria-live="polite">A keyword search brings the right note back into view.</p>
-        <p class="demo-disclosure">Illustrative demo. This page doesn’t connect to your notes.</p>
+        </div></div>
+        <div class="demo-toolbar"><div class="example-controls" aria-label="Choose a sample action"><button type="button" data-example="find" aria-pressed="true">Find a note</button><button type="button" data-example="write" aria-pressed="false">Add a task</button><button type="button" data-example="export" aria-pressed="false">Export notes</button></div><p class="example-caption" id="example-caption" aria-live="polite">A keyword search brings the right note back into view.</p></div>
+        <p class="demo-disclosure">Sample data. An illustration of the workflow, not a connection to your notes.</p>
       </div>
     </section>
 
-    <div class="requirements wrap" aria-label="Product requirements"><span><span class="small-square" aria-hidden="true"></span>For your Windows desktop</span><span>Windows 10 / 11</span><span>Python 3.10+</span><span>An MCP-compatible client</span></div>
+    <div class="requirements wrap" aria-label="Product requirements"><span><svg class="icon" aria-hidden="true"><use href="#i-window"/></svg>At home on Windows</span><span>Windows 10 / 11</span><span>Python 3.10+</span><span>MCP-compatible clients</span><span class="license-note">MIT licensed <span aria-hidden="true">↗</span></span></div>
 
-    <section class="possibilities wrap" aria-labelledby="possibilities-title">
-      <div class="section-intro"><h2 id="possibilities-title">Small notes.<br>Useful possibilities.</h2><p>The lists, ideas, and reminders you already keep. Now available to the AI tools you work with.</p></div>
-      <div class="usecases">
-        <article><svg class="feature-icon" aria-hidden="true"><use href="#i-search"/></svg><h3>Find that thought.</h3><p>Search the notes you’ve already written. Read the full text, or narrow the list by color and saved open state.</p><span class="tool-reference" translate="no">list_notes / search_notes / get_note</span></article>
-        <article><svg class="feature-icon" aria-hidden="true"><use href="#i-edit"/></svg><h3>Keep the list moving.</h3><p>Create a note from your conversation. Add the next task, update the details, or give it a different color.</p><span class="tool-reference" translate="no">create_note / update_note</span></article>
-        <article><svg class="feature-icon" aria-hidden="true"><use href="#i-export"/></svg><h3>Take your notes along.</h3><p>Export active notes to Markdown or JSON. Review your note counts, or restore a note you soft-deleted.</p><span class="tool-reference" translate="no">export_notes / get_stats / restore_note</span></article>
+    <section class="possibilities wrap" id="possibilities" aria-labelledby="possibilities-title">
+      <div class="section-intro" data-reveal><p class="eyebrow">Thoughtfully connected</p><h2 id="possibilities-title">The notes you keep.<br>More ways to use them.</h2><p>Your ideas already have a home.<br>Give your AI tools a way to find them.</p></div>
+      <div class="feature-bento">
+        <article class="feature-shell feature-find" data-reveal><div class="feature-core"><div class="feature-copy"><span class="feature-symbol"><svg class="feature-icon" aria-hidden="true"><use href="#i-search"/></svg></span><h3>Find that thought<br>you left behind.</h3><p>Search across your notes. Read the whole idea, or narrow things down by color and saved open state.</p></div><div class="search-preview" aria-label="Illustrative search results"><div class="search-preview-field"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span>release checklist</span><span class="key-hint" aria-hidden="true">↵</span></div><div class="search-result"><span class="result-note result-yellow" aria-hidden="true"></span><div><strong>For the week</strong><p>Review the <mark>release checklist</mark></p></div><span class="result-arrow" aria-hidden="true">↗</span></div><div class="search-result secondary-result"><span class="result-note result-sage" aria-hidden="true"></span><div><strong>Before we ship</strong><p>A few things worth checking.</p></div><span class="result-arrow" aria-hidden="true">↗</span></div></div><span class="tool-reference" translate="no">list_notes · search_notes · get_note</span></div></article>
+        <article class="feature-shell feature-write" data-reveal><div class="feature-core"><div class="feature-copy"><span class="feature-symbol"><svg class="feature-icon" aria-hidden="true"><use href="#i-edit"/></svg></span><h3>Keep the list moving.</h3><p>Create a note, append the next task, or give it a different color.</p><span class="tool-reference" translate="no">create_note · update_note</span></div><div class="mini-note" aria-hidden="true"><span>One more thing</span><span class="mini-check">✓&nbsp; Send the draft</span><span class="mini-line"></span><span class="mini-line short"></span></div></div></article>
+        <article class="feature-shell feature-export" data-reveal><div class="feature-core"><div class="feature-copy"><span class="feature-symbol"><svg class="feature-icon" aria-hidden="true"><use href="#i-export"/></svg></span><h3>Take the ideas along.</h3><p>Export active notes as Markdown or JSON. Restore soft-deleted notes when you need them.</p><span class="tool-reference" translate="no">export_notes · get_stats · restore_note</span></div><div class="file-pair" aria-hidden="true"><span class="file-sheet file-back">JSON</span><span class="file-sheet">.md<svg class="icon"><use href="#i-export"/></svg></span></div></div></article>
       </div>
-      <div class="connection-line"><span>Your MCP client</span><span class="connection-rule" aria-hidden="true"></span><span class="connection-center">Sticky Notes MCP</span><span class="connection-rule" aria-hidden="true"></span><span>Your local notes</span></div>
-      <p class="connection-caption">9 tools over stdio. Works with clients that can launch a local MCP server.</p>
+      <div class="connection-line" data-reveal><span>Your MCP client</span><span class="connection-rule" aria-hidden="true"></span><span class="connection-center"><span class="tiny-note" aria-hidden="true"></span>Sticky Notes MCP</span><span class="connection-rule" aria-hidden="true"></span><span>Your local notes</span></div>
+      <p class="connection-caption">9 tools over stdio. A small, local connection.</p>
     </section>
 
     <section class="setup-section" id="setup" aria-labelledby="setup-title">
-      <div class="setup-grid wrap">
-        <div class="setup-copy"><span class="setup-note" aria-hidden="true"></span><h2 id="setup-title">Make the<br>connection.</h2><p>Install the server, point your MCP client to it, and start with a simple request to list your notes.</p><ol class="setup-steps"><li><span>Install from source</span><p>Run these commands in PowerShell.</p></li><li><span>Configure your client</span><p>Add the Python and server paths to your client’s MCP settings.</p></li><li><span>Reconnect and try it</span><p>Ask: “List my five most recently updated sticky notes.”</p></li></ol><p class="setup-prerequisite">Before you begin: open Sticky Notes and create a note so its local database exists.</p></div>
+      <div class="setup-frame wrap" data-reveal><div class="setup-grid">
+        <div class="setup-copy"><p class="eyebrow">A few steps, then you’re connected</p><h2 id="setup-title">Make the<br>connection.</h2><p>Install the server, point your MCP client to it, and start with a simple request to list your notes.</p><ol class="setup-steps"><li><span>Install from source</span><p>Run these commands in PowerShell.</p></li><li><span>Configure your client</span><p>Add the Python and server paths to your client’s MCP settings.</p></li><li><span>Reconnect and try it</span><p>Ask: “List my five most recently updated sticky notes.”</p></li></ol><p class="setup-prerequisite">Before you begin: open Sticky Notes and create a note so its local database exists.</p></div>
 
-        <div class="setup-workspace">
+        <div class="setup-workspace"><div class="setup-workspace-core">
           <div class="setup-tabs" role="tablist" aria-label="Setup instructions"><button type="button" id="tab-install" role="tab" aria-selected="true" aria-controls="panel-install" data-setup="install">1. Install</button><button type="button" id="tab-config" role="tab" aria-selected="false" aria-controls="panel-config" data-setup="config" tabindex="-1">2. Client config</button></div>
           <div class="code-panel" id="panel-install" role="tabpanel" aria-labelledby="tab-install" tabindex="0"><div class="code-toolbar"><span>PowerShell</span><button type="button" class="copy-button" data-copy="install-code"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy commands</span></button></div><pre><code id="install-code">git clone https://github.com/widisaadi/stickynotes-mcp.git
 cd stickynotes-mcp
@@ -99,12 +106,12 @@ python -m venv .venv
           <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
           <a class="setup-doc-link" href="https://github.com/widisaadi/stickynotes-mcp#client-setup">Need another config format? See the setup guide<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <p class="data-note">The server edits the local Sticky Notes database. Close Sticky Notes and keep an independent backup before using write tools on important notes.</p>
-        </div>
-      </div>
+        </div></div>
+      </div></div>
       <noscript><p class="wrap noscript-note">JavaScript is off. The installation commands above remain available. For client configuration, <a href="https://github.com/widisaadi/stickynotes-mcp#client-setup">open the full setup guide</a>.</p></noscript>
     </section>
 
-    <section class="faq-section wrap" aria-labelledby="faq-title"><div class="faq-heading"><h2 id="faq-title">A few things<br>to know.</h2><p>The practical details before you connect.</p></div><div class="faq-list">
+    <section class="faq-section wrap" aria-labelledby="faq-title"><div class="faq-heading" data-reveal><p class="eyebrow">The practical details</p><h2 id="faq-title">A few things<br>to know.</h2><p>The practical details before you connect.</p></div><div class="faq-list" data-reveal>
       <details><summary>Does it work on macOS or Linux?<span class="plus" aria-hidden="true"></span></summary><p>The server targets Microsoft Sticky Notes’ Windows UWP database on Windows 10 and 11. Other operating systems and Sticky Notes editions with different storage formats are not supported by this implementation.</p></details>
       <details><summary>Which AI clients can use it?<span class="plus" aria-hidden="true"></span></summary><p>Use an MCP-compatible client that can start a local stdio server. Configure it to run your virtual environment’s Python executable with the absolute path to <code>server.py</code>. The setup guide includes a shared JSON example and the settings needed for other formats.</p></details>
       <details><summary>Where do my notes go?<span class="plus" aria-hidden="true"></span></summary><p>The server reads and writes the local <code>plum.sqlite</code> database. Retrieved notes are returned to your MCP client; its model provider and privacy settings determine what happens to that content afterward. This landing page has no access to your notes.</p></details>
@@ -113,9 +120,9 @@ python -m venv .venv
       <details><summary>Is there a subscription?<span class="plus" aria-hidden="true"></span></summary><p>The project’s source is available under the MIT license. There is no paid plan for this server. Your AI client or model provider may have its own costs. This is an independent project, not an official Microsoft product.</p></details>
     </div></section>
 
-    <section class="closing wrap" aria-labelledby="closing-title"><div class="closing-mark" aria-hidden="true"><span class="note-mark"></span></div><div><h2 id="closing-title">A small project.<br>Open to your ideas.</h2><p>Read the source, report an issue, or make it a little better.</p></div><a class="button button-outline" href="https://github.com/widisaadi/stickynotes-mcp"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>Explore on GitHub</a></section>
+    <section class="closing wrap" aria-labelledby="closing-title" data-reveal><div class="closing-shell"><div class="closing-core"><span class="closing-note" aria-hidden="true"><span class="note-mark"></span></span><p class="eyebrow">Built in the open</p><h2 id="closing-title">A small project.<br>Room for your ideas.</h2><p>Read the source, report an issue, or make it a little better.</p><a class="button button-dark" href="https://github.com/widisaadi/stickynotes-mcp"><span>Explore on GitHub</span><span class="button-icon"><svg class="icon github-icon" aria-hidden="true"><use href="#i-github"/></svg></span></a><span class="closing-scribble" aria-hidden="true">Make something useful.</span></div></div></section>
   </main>
 
-  <footer class="site-footer wrap"><a class="footer-brand" href="#" translate="no">Sticky Notes MCP</a><p>An independent project by <a href="https://github.com/widisaadi">widisaadi</a>.</p><div><a href="https://github.com/widisaadi/stickynotes-mcp/blob/main/LICENSE">MIT license</a><a href="https://github.com/widisaadi/stickynotes-mcp/issues">Report an issue</a></div></footer>
+  <footer class="site-footer wrap"><a class="footer-brand" href="#" translate="no"><span class="note-mark" aria-hidden="true"></span>Sticky Notes MCP</a><p>An independent project by <a href="https://github.com/widisaadi">widisaadi</a>.</p><div><a href="https://github.com/widisaadi/stickynotes-mcp/blob/main/LICENSE">MIT license</a><a href="https://github.com/widisaadi/stickynotes-mcp/issues">Report an issue</a></div></footer>
 </body>
 </html>
