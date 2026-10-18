@@ -149,6 +149,18 @@ This is an independent project and is not affiliated with Microsoft. It edits th
 | Changes are not visible in the app | Reopen Sticky Notes. Updates to stored flags may not immediately affect existing windows. |
 | SQL errors about missing tables or columns | The database may use a different schema. This server expects the UWP `Note` and `User` tables used in `server.py`. |
 
+## Landing page
+
+The responsive landing page lives in [`docs/`](docs/). It uses plain HTML, CSS, and JavaScript, with no build step or external runtime dependencies. Its interactive examples use fictional sample data and do not access your notes.
+
+Preview it locally from the repository root:
+
+```powershell
+python -m http.server 4173 --directory docs --bind 127.0.0.1
+```
+
+Open [the local preview](http://127.0.0.1:4173) in your browser. Stop the preview with `Ctrl+C` when finished.
+
 ## Development
 
 `server.py` contains the server and all nine tools. `test_server.py` runs 11 self-check stages, including text cleanup, note operations, deletion, restoration, and export.
