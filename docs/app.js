@@ -1,5 +1,9 @@
 'use strict';
 
+// Keyboard changes are immediate; pointer interactions keep brief feedback.
+document.addEventListener('keydown', () => document.documentElement.classList.add('keyboard-input'), true);
+document.addEventListener('pointerdown', () => document.documentElement.classList.remove('keyboard-input'), true);
+
 const examples = {
   find: {title:'For the week', lines:[['Outline the new idea','done'],['Review the release checklist','highlighted'],['Make a little time to read','']], footer:'The thought you were looking for.', prompt:'Find my note about the release checklist.', caption:'A keyword search brings the right note back into view.', icon:'i-search'},
   write: {title:'One more thing', lines:[['Outline the new idea','done'],['Review the release checklist',''],['Send the draft to the team','highlighted']], footer:'A next step, added to the list.', prompt:'Add “Send the draft to the team” to my note.', caption:'Append a new task while keeping the rest of your note.', icon:'i-edit'},
@@ -12,7 +16,7 @@ function setQuery(key, value) {
   history.replaceState(null,'',url);
 }
 
-function showExample(kind, updateUrl = true) {
+function showExample(kind, updateUrl = true, animate = true) {
   if (!Object.hasOwn(examples,kind)) kind='find';
   const item=examples[kind];
   document.querySelector('#note-title').textContent=item.title;
@@ -29,15 +33,15 @@ function showExample(kind, updateUrl = true) {
   document.querySelector('.sample-request use').setAttribute('href',`#${item.icon}`);
   document.querySelector('#example-caption').textContent=item.caption;
   document.querySelectorAll('[data-example]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.example===kind)));
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (animate && updateUrl && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const content = document.querySelector('.paper-content');
     content.getAnimations().forEach(animation => animation.cancel());
-    content.animate([{opacity:.25,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}], {duration:420,easing:'cubic-bezier(.22,1,.36,1)'});
+    content.animate([{opacity:.25,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}], {duration:220,easing:'cubic-bezier(.22,1,.36,1)'});
   }
   if(updateUrl) setQuery('example',kind);
 }
 
-function showSetup(kind, updateUrl = true, focus = false) {
+function showSetup(kind, updateUrl = true, focus = false, animate = true) {
   if(!['install','config'].includes(kind)) kind='install';
   document.querySelectorAll('[data-setup]').forEach(button => {
     const selected=button.dataset.setup===kind;
@@ -46,15 +50,17 @@ function showSetup(kind, updateUrl = true, focus = false) {
     document.querySelector(`#panel-${button.dataset.setup}`).hidden=!selected;
     if(selected && focus) button.focus();
   });
-  if (updateUrl && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelector(`#panel-${kind}`).animate([{opacity:.3,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}], {duration:400,easing:'cubic-bezier(.22,1,.36,1)'});
+  if (animate && updateUrl && !focus && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const panel=document.querySelector(`#panel-${kind}`);
+    panel.getAnimations().forEach(animation => animation.cancel());
+    panel.animate([{opacity:.3,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}], {duration:180,easing:'cubic-bezier(.22,1,.36,1)'});
   }
   if(updateUrl) setQuery('setup',kind);
 }
 
-document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click',()=>showExample(button.dataset.example)));
+document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click',event=>showExample(button.dataset.example,true,event.detail>0)));
 document.querySelectorAll('[data-setup]').forEach(button => {
-  button.addEventListener('click',()=>showSetup(button.dataset.setup));
+  button.addEventListener('click',event=>showSetup(button.dataset.setup,true,false,event.detail>0));
   button.addEventListener('keydown',event=>{
     const keys=['ArrowLeft','ArrowRight','Home','End'];
     if(!keys.includes(event.key)) return;
@@ -95,6 +101,11 @@ restoreFromUrl();
 addEventListener('popstate',restoreFromUrl);
 
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+motionPreference.addEventListener('change', event => {
+  if (!event.matches) return;
+  document.getAnimations().forEach(animation => animation.cancel());
+  document.querySelectorAll('[data-reveal]').forEach(element => element.classList.add('is-visible'));
+});
 if ('IntersectionObserver' in window && !motionPreference.matches) {
   document.documentElement.classList.add('motion-ready');
   const observer = new IntersectionObserver(entries => {
@@ -117,12 +128,14 @@ function closeMenu(immediate = false) {
   menuClosing = true;
   menu.classList.remove('is-open');
   menuToggle.setAttribute('aria-expanded','false');
-  setTimeout(() => {
+  const finish = () => {
     menu.close();
     document.body.classList.remove('menu-open');
     menuClosing = false;
     if (menuToggle.getClientRects().length) menuToggle.focus({preventScroll:true});
-  }, immediate || motionPreference.matches ? 0 : 400);
+  };
+  if (immediate || motionPreference.matches || document.documentElement.classList.contains('keyboard-input')) finish();
+  else setTimeout(finish, 180);
 }
 
 menuToggle.addEventListener('click', () => {
@@ -134,6 +147,6 @@ menuToggle.addEventListener('click', () => {
 });
 menu.querySelector('.menu-close').addEventListener('click', () => closeMenu());
 menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
-menu.addEventListener('cancel', event => { event.preventDefault(); closeMenu(); });
+menu.addEventListener('cancel', event => { event.preventDefault(); closeMenu(true); });
 menu.addEventListener('click', event => { if (event.target === menu) closeMenu(); });
 matchMedia('(min-width: 768px)').addEventListener('change', event => { if (event.matches) closeMenu(true); });
