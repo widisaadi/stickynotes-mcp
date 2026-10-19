@@ -16,8 +16,7 @@
 .sample-request { z-index: 2; }
 [data-sc-parallax] { will-change: auto; }
 .keyboard-input [data-sc-parallax] { transform: none !important; }
-/* A second composition: open masthead, split introduction, a held paper trail. */
-[data-version=cinematic] .site-header { position: relative; top: 0; width: min(1320px, calc(100% - 80px)); background: transparent; backdrop-filter: none; box-shadow: none; border-radius: 0; padding-inline: 0; }
+/* Cinematic shares the floating sticky header; its body retains the split composition. */
 [data-version=cinematic] .version-picker { justify-content: flex-start; width: min(1320px, calc(100% - 80px)); }
 [data-version=cinematic] .hero { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 20px; width: min(1320px, calc(100% - 80px)); margin: 40px auto 0; min-height: 650px; }
 [data-version=cinematic] .hero-content { width: 100%; text-align: left; padding: 0 0 35px; }
@@ -74,7 +73,7 @@
 @media (max-width: 767px) {
   .version-picker { margin-top: 12px; gap: 7px; font-size: 9px; }
   .version-picker > span { flex-basis: 100%; text-align: center; margin: 0; }
-  [data-version=cinematic] .site-header, [data-version=cinematic] .version-picker, [data-version=cinematic] .hero { width: calc(100% - 32px); }
+  [data-version=cinematic] .version-picker, [data-version=cinematic] .hero { width: calc(100% - 32px); }
   [data-version=cinematic] .hero { grid-template-columns: 1fr; margin-top: 30px; min-height: 0; gap: 10px; }
   [data-version=cinematic] .version-picker { justify-content: center; }
   [data-version=cinematic] .hero-content { padding: 0 10px 24px; }
