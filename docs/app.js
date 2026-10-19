@@ -197,7 +197,7 @@ connectButton?.addEventListener('click', event => {
   const startWidth = connectButton.getBoundingClientRect().width;
   connectButton.style.width = `${startWidth}px`;
   connectButton.classList.remove('is-connecting');
-  requestAnimationFrame(() => { connectButton.classList.add('is-connecting'); connectButton.style.width = `${startWidth + 78}px`; });
+  requestAnimationFrame(() => { connectButton.classList.add('is-connecting'); connectButton.style.width = `${startWidth + 34}px`; });
   setTimeout(() => { if (label) label.textContent = 'Opening setup'; }, 250);
   setTimeout(() => { connectButton.style.width = `${startWidth}px`; }, 500);
   setTimeout(() => { connectButton.classList.remove('is-connecting'); connectButton.style.width = ''; if (label) label.textContent = 'Connect your notes'; goToSetup(); }, 760);
