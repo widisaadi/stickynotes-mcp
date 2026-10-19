@@ -104,7 +104,7 @@ section[id], div[id] { scroll-margin-top: 115px; }
 .hero-actions .button-dark.is-connecting::after { animation: connect-trail 620ms cubic-bezier(.22,1,.36,1) both; }
 .hero-actions .button-dark.is-connecting .button-icon { animation: connect-arrow 620ms cubic-bezier(.22,1,.36,1) both; }
 @keyframes connect-button { 0% { transform: scale(1); } 35% { transform: translateX(12px) scale(.96); } 72% { transform: translateX(-5px) scale(1.02); } 100% { transform: translateX(0) scale(1); background: #697a59; } }
-@keyframes connect-arrow { 0% { transform: translateX(0); } 35% { transform: translateX(8px); } 60% { transform: translateX(18px); } 100% { transform: translateX(0); } }
+@keyframes connect-arrow { 0% { transform: translateX(0); opacity: 1; } 55% { transform: translateX(3cm); opacity: 1; } 100% { transform: translateX(3cm); opacity: 0; } }
 @keyframes connect-trail { 0%, 20% { opacity: 0; transform: scaleX(0); } 48% { opacity: .8; transform: scaleX(1); } 100% { opacity: 0; transform: scaleX(1.15); } }
 @media (prefers-reduced-motion: reduce) { .hero-actions .button-dark.is-connecting, .hero-actions .button-dark.is-connecting::after, .hero-actions .button-dark.is-connecting .button-icon { animation: none; } }
 .button-icon { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #f5faee13; box-shadow: inset 0 1px 1px #ffffff13; transition: transform 220ms var(--spring); }
