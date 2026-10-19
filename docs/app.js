@@ -187,14 +187,19 @@ const connectButton = document.querySelector('.hero-actions .button-dark');
 connectButton?.addEventListener('click', event => {
   event.preventDefault();
   const setup = document.querySelector('#setup');
+  const label = connectButton.querySelector('.button-label');
   if (!setup) return;
   const goToSetup = () => {
     history.replaceState(null, '', '#setup');
     setup.scrollIntoView({behavior: motionPreference.matches ? 'auto' : 'smooth', block: 'start'});
   };
   if (motionPreference.matches || document.documentElement.classList.contains('keyboard-input')) return goToSetup();
+  const startWidth = connectButton.getBoundingClientRect().width;
+  connectButton.style.width = `${startWidth}px`;
   connectButton.classList.remove('is-connecting');
-  requestAnimationFrame(() => connectButton.classList.add('is-connecting'));
-  setTimeout(() => { connectButton.classList.remove('is-connecting'); goToSetup(); }, 680);
+  requestAnimationFrame(() => { connectButton.classList.add('is-connecting'); connectButton.style.width = `${startWidth + 78}px`; });
+  setTimeout(() => { if (label) label.textContent = 'Opening setup'; }, 250);
+  setTimeout(() => { connectButton.style.width = `${startWidth}px`; }, 500);
+  setTimeout(() => { connectButton.classList.remove('is-connecting'); connectButton.style.width = ''; if (label) label.textContent = 'Connect your notes'; goToSetup(); }, 760);
 });
 matchMedia('(min-width: 768px)').addEventListener('change', event => { if (event.matches) closeMenu(true); });
