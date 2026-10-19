@@ -163,6 +163,8 @@ python -m http.server 4173 --directory docs --bind 127.0.0.1
 
 Open [the local preview](http://127.0.0.1:4173) in your browser. Stop the preview with `Ctrl+C` when finished.
 
+Two scroll treatments are included: the editorial page at `/` and the cinematic paper-trail version at `/cinematic/`. The page switcher opens either version. Both keep a complete mobile and reduced-motion layout. The locally bundled ScrollCraft engine is attributed in [`docs/vendor/SCROLLCRAFT-SOURCE.md`](docs/vendor/SCROLLCRAFT-SOURCE.md).
+
 ## Development
 
 `server.py` contains the server and all nine tools. `test_server.py` runs 11 self-check stages, including text cleanup, note operations, deletion, restoration, and export.
