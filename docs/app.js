@@ -187,11 +187,12 @@ const connectButton = document.querySelector('.hero-actions .button-dark');
 connectButton?.addEventListener('click', event => {
   event.preventDefault();
   const setup = document.querySelector('#setup');
+  const setupFrame = setup?.querySelector('.setup-frame');
   const label = connectButton.querySelector('.button-label');
   if (!setup) return;
   const goToSetup = () => {
     history.replaceState(null, '', '#setup');
-    setup.scrollIntoView({behavior: motionPreference.matches ? 'auto' : 'smooth', block: 'start'});
+    (setupFrame || setup).scrollIntoView({behavior: motionPreference.matches ? 'auto' : 'smooth', block: 'start'});
   };
   if (motionPreference.matches || document.documentElement.classList.contains('keyboard-input')) return goToSetup();
   const startWidth = connectButton.getBoundingClientRect().width;

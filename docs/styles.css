@@ -231,6 +231,7 @@ section[id], div[id] { scroll-margin-top: 115px; }
 
 .setup-section { padding-top: 124px; color: #eef2e7; }
 .setup-frame { padding: 8px; background: #dfe4d5; border-radius: 38px; box-shadow: inset 0 1px 1px #fff; }
+.setup-frame { scroll-margin-top: 112px; }
 .setup-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; background: #30392b; padding: 57px; border-radius: 30px; box-shadow: inset 0 1px 1px #ffffff15; }
 .setup-copy { min-width: 0; }
 .setup-copy .eyebrow { background: #ffffff08; color: #a2b194; box-shadow: inset 0 1px 0 #ffffff08; font-size: 7px; letter-spacing: .12em; }
