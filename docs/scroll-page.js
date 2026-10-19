@@ -63,19 +63,28 @@ if (trail) {
     export:['Notes to take along','For the week.md\nIdeas for a rainy day.md','Ready to carry forward.','Export my notes as Markdown.']
   };
   let current='find';
+  let transitionId=0;
   const observer=new IntersectionObserver(entries=>{
     if(!scrollDesktop.matches||scrollReduced.matches) return;
     for(const entry of entries) {
       if(!entry.isIntersecting||entry.target.dataset.trail===current) continue;
       current=entry.target.dataset.trail;
-      const [title,body,stamp,request]=states[current];
-      document.querySelector('#trail-note-title').textContent=title;
-      document.querySelector('#trail-note-body').textContent=body;
-      document.querySelector('#trail-note-stamp').textContent=stamp;
-      document.querySelector('#trail-request').textContent=request;
       const note=document.querySelector('.trail-note');
       note.getAnimations().forEach(a=>a.cancel());
-      if(!document.documentElement.classList.contains('keyboard-input')) note.animate([{opacity:.6,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:220,easing:'cubic-bezier(.22,1,.36,1)'});
+      const [title,body,stamp,request]=states[current];
+      const id=++transitionId;
+      const update=()=>{
+        if(id!==transitionId) return;
+        document.querySelector('#trail-note-title').textContent=title;
+        document.querySelector('#trail-note-body').textContent=body;
+        document.querySelector('#trail-note-stamp').textContent=stamp;
+        document.querySelector('#trail-request').textContent=request;
+        note.animate([{opacity:.82,transform:'translateY(3px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'cubic-bezier(.22,1,.36,1)'});
+      };
+      if(!document.documentElement.classList.contains('keyboard-input')) {
+        const fade=note.animate([{opacity:1},{opacity:.18}],{duration:120,easing:'ease-out'});
+        fade.finished.then(update,update);
+      } else update();
     }
   },{rootMargin:'-30% 0px -35% 0px',threshold:0});
   document.querySelectorAll('[data-trail]').forEach(el=>observer.observe(el));
