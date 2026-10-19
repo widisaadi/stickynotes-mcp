@@ -184,10 +184,17 @@ menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => 
 menu.addEventListener('cancel', event => { event.preventDefault(); closeMenu(true); });
 menu.addEventListener('click', event => { if (event.target === menu) closeMenu(); });
 const connectButton = document.querySelector('.hero-actions .button-dark');
-connectButton?.addEventListener('click', () => {
-  if (document.documentElement.classList.contains('keyboard-input')) return;
+connectButton?.addEventListener('click', event => {
+  event.preventDefault();
+  const setup = document.querySelector('#setup');
+  if (!setup) return;
+  const goToSetup = () => {
+    history.replaceState(null, '', '#setup');
+    setup.scrollIntoView({behavior: motionPreference.matches ? 'auto' : 'smooth', block: 'start'});
+  };
+  if (motionPreference.matches || document.documentElement.classList.contains('keyboard-input')) return goToSetup();
   connectButton.classList.remove('is-connecting');
   requestAnimationFrame(() => connectButton.classList.add('is-connecting'));
-  setTimeout(() => connectButton.classList.remove('is-connecting'), 700);
+  setTimeout(() => { connectButton.classList.remove('is-connecting'); goToSetup(); }, 680);
 });
 matchMedia('(min-width: 768px)').addEventListener('change', event => { if (event.matches) closeMenu(true); });
