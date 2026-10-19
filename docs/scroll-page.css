@@ -8,6 +8,7 @@
 .version-picker > span { color: #68745b; margin-right: 10px; }
 .version-picker a { display: inline-flex; align-items: center; min-height: 44px; padding: 7px 16px; border-radius: 30px; background: #efefe7; }
 .version-picker a[aria-current] { background: #dfe5d4; color: #35432b; box-shadow: inset 0 1px 0 #fff9; }
+.demo-playback { border: 0; border-radius: 30px; padding: 8px 17px; min-height: 44px; background: #e9eddf; color: #48573b; font: inherit; font-size: 10px; }
 .hero-content { padding-top: 30px; }
 .support-note { background: transparent; box-shadow: none; }
 .support-note .support-inner { box-shadow: inset 0 1px 1px #fff9, 0 16px 40px #30392308; }

@@ -21,6 +21,41 @@ document.addEventListener('keydown',()=>{if(scrollInstance)syncScrollCraft();});
 document.addEventListener('pointerdown',()=>{if(!scrollInstance)syncScrollCraft();});
 
 const trail=document.querySelector('.paper-trail');
+if (document.body.dataset.version==='cinematic') {
+  const demo=document.querySelector('#examples');
+  const controls=demo.querySelector('.example-controls');
+  const toggle=document.createElement('button');
+  toggle.type='button';
+  toggle.className='demo-playback';
+  let paused=scrollReduced.matches;
+  let visible=false;
+  let timer;
+  function scheduleDemo() {
+    clearTimeout(timer);
+    toggle.textContent=paused?'Play examples':'Pause examples';
+    toggle.setAttribute('aria-pressed',String(!paused));
+    const focused=controls.contains(document.activeElement);
+    demo.querySelector('#example-caption').setAttribute('aria-live',paused||focused?'polite':'off');
+    if(paused||!visible||document.hidden||focused) return;
+    timer=setTimeout(()=>{
+      const order=['find','write','export'];
+      const current=demo.querySelector('[data-example][aria-pressed=true]').dataset.example;
+      showExample(order[(order.indexOf(current)+1)%order.length],false,true);
+      scheduleDemo();
+    },3000);
+  }
+  toggle.addEventListener('click',()=>{paused=!paused;scheduleDemo();});
+  demo.querySelector('.demo-toolbar').append(toggle);
+  controls.addEventListener('focusin',scheduleDemo);
+  controls.addEventListener('focusout',()=>requestAnimationFrame(scheduleDemo));
+  controls.addEventListener('click',scheduleDemo);
+  document.addEventListener('visibilitychange',scheduleDemo);
+  scrollReduced.addEventListener('change',()=>{if(scrollReduced.matches)paused=true;scheduleDemo();});
+  new IntersectionObserver(entries=>{
+    visible=entries[0].isIntersecting;scheduleDemo();
+  },{threshold:.3}).observe(demo);
+  scheduleDemo();
+}
 if (trail) {
   const states={
     find:['For the week','Review the release checklist.\nMake a little time to read.','A thought, found.','Find my release checklist.'],

@@ -59,7 +59,7 @@ function showExample(kind, updateUrl = true, animate = true) {
   document.querySelector('#example-caption').textContent=item.caption;
   document.querySelectorAll('[data-example]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.example===kind)));
   stopScene();
-  if (animate && updateUrl && !matchMedia('(prefers-reduced-motion: reduce)').matches) animateExample();
+  if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) animateExample();
   if(updateUrl) setQuery('example',kind);
 }
 
@@ -128,7 +128,7 @@ document.querySelectorAll('[data-copy]').forEach(button => button.addEventListen
 
 function restoreFromUrl() {
   const params=new URLSearchParams(location.search);
-  showExample(params.get('example') || 'find',false);
+  showExample(params.get('example') || 'find',false,false);
   showSetup(params.get('setup') || 'install',false);
 }
 restoreFromUrl();
