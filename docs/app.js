@@ -183,4 +183,11 @@ menu.querySelector('.menu-close').addEventListener('click', () => closeMenu());
 menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
 menu.addEventListener('cancel', event => { event.preventDefault(); closeMenu(true); });
 menu.addEventListener('click', event => { if (event.target === menu) closeMenu(); });
+const connectButton = document.querySelector('.hero-actions .button-dark');
+connectButton?.addEventListener('click', () => {
+  if (document.documentElement.classList.contains('keyboard-input')) return;
+  connectButton.classList.remove('is-connecting');
+  requestAnimationFrame(() => connectButton.classList.add('is-connecting'));
+  setTimeout(() => connectButton.classList.remove('is-connecting'), 700);
+});
 matchMedia('(min-width: 768px)').addEventListener('change', event => { if (event.matches) closeMenu(true); });
