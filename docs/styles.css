@@ -554,6 +554,7 @@ pre code { white-space: pre; overflow-wrap: normal; }
 
 /* Stable feedback and immediate keyboard interaction. */
 .copy-button { min-width: 132px; }
+.copy-button[data-copied=true] { color: #edf5df; background: #d5e8b519; }
 .copy-button:active, .nav-github:active, .menu-toggle:active, .menu-close:active { transform: scale(.97); transition-duration: 120ms; }
 .menu-dialog { overflow-y: auto; scrollbar-gutter: stable; }
 .menu-dialog:not(.is-open) nav a { transition-delay: 0ms; }

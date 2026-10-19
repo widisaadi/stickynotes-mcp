@@ -4,6 +4,31 @@
 document.addEventListener('keydown', () => document.documentElement.classList.add('keyboard-input'), true);
 document.addEventListener('pointerdown', () => document.documentElement.classList.remove('keyboard-input'), true);
 
+// One short paper scene: thought → assistant → quiet resolution, with no loop.
+const sceneAnimations = new Set();
+function stopScene() {
+  sceneAnimations.forEach(animation => animation.cancel());
+  sceneAnimations.clear();
+}
+document.addEventListener('keydown', stopScene, true);
+function animateExample() {
+  stopScene();
+  const mobile = matchMedia('(max-width: 767px)').matches;
+  const scale = mobile ? .8 : 1;
+  const stages = [
+    ['.paper-content', [{opacity:.35,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}], 220, 0],
+    ['.request-symbol', [{opacity:.6,transform:'translateY(3px) scale(.96)'},{opacity:1,transform:'translateY(0) scale(1)'}], 120, 220],
+    ['.desk-heading-mark', [{opacity:.45,transform:'scale(.85)'},{opacity:1,transform:'scale(1)'}], 140, 340]
+  ];
+  for (const [selector, frames, duration, delay] of stages) {
+    const animation = document.querySelector(selector).animate(frames, {
+      duration:duration*scale, delay:delay*scale, easing:'cubic-bezier(.22,1,.36,1)'
+    });
+    sceneAnimations.add(animation);
+    animation.finished.then(() => sceneAnimations.delete(animation), () => sceneAnimations.delete(animation));
+  }
+}
+
 const examples = {
   find: {title:'For the week', lines:[['Outline the new idea','done'],['Review the release checklist','highlighted'],['Make a little time to read','']], footer:'The thought you were looking for.', prompt:'Find my note about the release checklist.', caption:'A keyword search brings the right note back into view.', icon:'i-search'},
   write: {title:'One more thing', lines:[['Outline the new idea','done'],['Review the release checklist',''],['Send the draft to the team','highlighted']], footer:'A next step, added to the list.', prompt:'Add “Send the draft to the team” to my note.', caption:'Append a new task while keeping the rest of your note.', icon:'i-edit'},
@@ -33,11 +58,8 @@ function showExample(kind, updateUrl = true, animate = true) {
   document.querySelector('.sample-request use').setAttribute('href',`#${item.icon}`);
   document.querySelector('#example-caption').textContent=item.caption;
   document.querySelectorAll('[data-example]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.example===kind)));
-  if (animate && updateUrl && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const content = document.querySelector('.paper-content');
-    content.getAnimations().forEach(animation => animation.cancel());
-    content.animate([{opacity:.25,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}], {duration:220,easing:'cubic-bezier(.22,1,.36,1)'});
-  }
+  stopScene();
+  if (animate && updateUrl && !matchMedia('(prefers-reduced-motion: reduce)').matches) animateExample();
   if(updateUrl) setQuery('example',kind);
 }
 
@@ -70,18 +92,30 @@ document.querySelectorAll('[data-setup]').forEach(button => {
   });
 });
 
-document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click',async()=>{
+document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click',async(event)=>{
   const code=document.getElementById(button.dataset.copy);
   const status=document.querySelector('#copy-status');
   const label=button.querySelector('span');
   const original=button.dataset.copy==='install-code' ? 'Copy commands' : 'Copy config';
+  const icon=button.querySelector('use');
   try {
     if(!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
     await navigator.clipboard.writeText(code.textContent);
     label.textContent='Copied';
+    icon.setAttribute('href','#i-check');
+    button.dataset.copied='true';
+    if (event.detail>0 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const mark=button.querySelector('svg');
+      mark.getAnimations().forEach(animation=>animation.cancel());
+      mark.animate([{opacity:.4,transform:'scale(.85) translateY(2px)'},{opacity:1,transform:'scale(1) translateY(0)'}], {duration:160,easing:'cubic-bezier(.22,1,.36,1)'});
+    }
     status.textContent=button.dataset.copy==='install-code' ? 'Installation commands copied.' : 'Configuration copied. Replace the example paths before saving.';
     clearTimeout(button.copyTimer);
-    button.copyTimer=setTimeout(()=>label.textContent=original,2500);
+    button.copyTimer=setTimeout(()=>{
+      label.textContent=original;
+      icon.setAttribute('href','#i-copy');
+      delete button.dataset.copied;
+    },2500);
   } catch {
     const range=document.createRange();
     range.selectNodeContents(code);
