@@ -46,7 +46,7 @@
 .trail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; margin-top: 65px; align-items: start; }
 .trail-stage { position: sticky; top: 130px; padding: 26px 0; }
 .trail-tray { padding: 0; border-radius: 2px; background: #d9d6c7; transform: rotate(-2deg); box-shadow: 0 24px 58px #3a3f2417; }
-.trail-note { padding: 42px 40px 36px; border-radius: 2px; background: #fff8b8; min-height: 320px; box-shadow: inset 0 1px 0 #fff9, 0 1px 0 #c6bd79; }
+.trail-note { aspect-ratio: 1 / 1; padding: 42px 40px 36px; border-radius: 2px; background: #fff8b8; min-height: 0; box-shadow: inset 0 1px 0 #fff9, 0 1px 0 #c6bd79; }
 .trail-date { color: #75643b; font-size: 10px; }
 .trail-note h3 { font-family: var(--serif); font-weight: 400; font-size: 44px; margin: 30px 0 20px; letter-spacing: -.04em; }
 #trail-note-body { font-size: 14px; line-height: 2; color: #6d5b2f; white-space: pre-line; }
@@ -94,7 +94,7 @@
   .trail-layout { display: block; margin-top: 35px; }
   .trail-stage { position: static; padding: 0 8px 20px; }
   .trail-tray { transform: none; }
-  .trail-note { min-height: 260px; padding: 28px; }
+  .trail-note { min-height: 0; padding: 28px; }
   .trail-note h3 { font-size: 36px; }
   #trail-note-body { font-size: 12px; }
   .trail-step { min-height: 0; padding: 35px 10px; }
